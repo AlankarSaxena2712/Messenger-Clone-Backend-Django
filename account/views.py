@@ -67,7 +67,7 @@ class MessageAPIView(generics.CreateAPIView, generics.RetrieveAPIView):
     serializer_class = MessageSerializer
 
     def get(self, request, *args, **kwargs):
-        serializer = self.get_serializer(Message.objects.all().filter(room__name=kwargs['room']), many=True)
+        serializer = self.get_serializer(Message.objects.all().filter(room__name=kwargs['room']).order_by("-id"), many=True)
         return success_response(serializer.data)
 
     def post(self, request, *args, **kwargs):
